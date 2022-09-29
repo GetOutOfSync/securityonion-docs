@@ -57,6 +57,7 @@ For example, suppose you want to change the default value for purging old pcap. 
 
 Below is a table of all of the salt options for stenographer, including customised options specific to our environment. To configure a salt option, refer to the example above.
 
+
 | Name               | Default Value  | Notes                                                                                        |
 |--------------------|----------------|----------------------------------------------------------------------------------------------|
 | aiops              | 128            | Unknown                                                                                      |
