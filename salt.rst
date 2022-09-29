@@ -69,7 +69,7 @@ Adding Salt Options
 
 Salt is a powerful configuration management tool, and works by reading configuration values and applying them across all of the nodes. In Security Onion, most salt values are read from the global.sls file. It is possible to add configuration options to the global.sls file and have it read by other configuration files. As an example, we will work on adding a configuration option to change the folder Strelka outputs pcap files. 
 
-.. warning::
+.. note::
 
    Security Onion Solutions does not condone changing the storage location of pcaps to a remote server. This can significantly slow down the network due to the amount of traffic flowing, and can lead to long pcap request times.
 
