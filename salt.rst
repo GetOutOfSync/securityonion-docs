@@ -78,16 +78,29 @@ In ``/opt/so/saltstack/local/pillar/global.sls``, add an option similar to below
 ::
 
 storage:
-   pcapdir: '/nsm/pcap'
-   indexdir: '/nsm/pcapindex'
+   pcapdir: '/offload/pcap'
+   indexdir: '/offload/pcapindex'
 
-Once the configuration has been implemented in the Global pillar file, we need to import the new value into the default salt configuration of the tools you would like to modify. The most common file which needs the new value is the init.sls file. In this example, we are modifying the Strelka default init.sls, found at ``/opt/so/saltstack/default/salt/pcap/init.sls``.
+Once the configuration has been implemented in the Global pillar file, we need to import the new value into the default salt configuration of the tools you would like to modify. The most common file which needs the new value is the init.sls file. In this example, we are modifying the Strelka default init.sls, found at ``/opt/so/saltstack/default/salt/pcap/init.sls``. 
 
 ::
 
 {% set PCAPDIR = salt['pillar.get']('storage:pcapdir', '/nsm/pcap') %}
 {% set INDEXDIR = salt['pillar.get']('storage:indexdir', '/nsm/pcapindex') %}
 
+One thing to keep in mind is the second value in each of the variable declarations is used as the default value. In this example, if the global pillar file does not contain a value for storage:pcapdir, then it will use ``'/nsm/pcap'``.
+
+Within the init.sls file, change every hardcoded instance of the value you want to modify into ``{{ VARIABLENAME }}``. As an example, modify every instance of ``'/nsm/pcap'`` to ``{{ PCAPDIR }}``, except in the binds section. The binds configuration should look like this:
+
+::
+
+   - binds
+      - /opt/so/conf/steno/certs:/etc/stenographer/certs:/etc/stenographer/certs:rw
+      - /opt/so/conf/steno/config:/etc/stenographer/config:rw
+      - {{ PCAPDIR }}:/nsm/pcap:rw
+      - {{ INDEXDIR }}:/nsm/pcapindex:rw
+
+Often times there will be multiple services which will need to to know new or changed values. A good starting point to discovering services which refer to old hardcoded values can be found by running ``sudo grep -r "hardcoded value" /opt/so/saltstack/default/salt/* --include "init.sls"``. There are instances of files which refer to hard coded values which need to be modified, but these files will be referred to by name in the init.sls. There are instances of files where modifying them will cause the service to fail, especially when dealing with docker-specific configuration files. Discovering which files are directly relevant to the configuration requires experimentation.
 
 Salt Minion Startup Options
 ---------------------------
