@@ -59,14 +59,23 @@ Below is a table of all of the salt options for stenographer, including customis
 
 
 | Name               | Default Value  | Notes                                                                                        |
+
 |--------------------|----------------|----------------------------------------------------------------------------------------------|
+
 | aiops              | 128            | Unknown                                                                                      |
+
 | blocks             | 2048           | Unknown                                                                                      |
+
 | diskfreepercentage | 10             | Once the volume reaches the percentage free, stenographer will begin discarding old pcaps    |
+
 | interface          | bond0          | The interface used to collet traffic. This is the docker interface, not a physical interface |
+
 | filemb             | 4096           | Unknown                                                                                      |
+
 | threads            | 1              | How many total instances of stenographer should run in parallel on each node.                |
+
 | **pcapdir**        | /nsm/pcap      | **Nonstandard Option**. Used to change where pcaps are stored.                               |
+
 | **indexdir**       | /nsm/pcapindex | **Nonstandard Option**. Used to change where pcap indexes are stored. Required to read data. |
 
 
