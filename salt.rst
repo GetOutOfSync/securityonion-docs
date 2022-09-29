@@ -64,6 +64,9 @@ Here are some of the items that can be customized with pillar settings:
 
 - :ref:`zeek`
 
+Adding Salt Options
+---------------------------
+
 Salt Minion Startup Options
 ---------------------------
 
