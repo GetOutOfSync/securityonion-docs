@@ -72,6 +72,22 @@ Salt is a powerful configuration management tool, and works by reading configura
 .. note::
 
    Security Onion Solutions does not condone changing the storage location of pcaps to a remote server. This can significantly slow down the network due to the amount of traffic flowing, and can lead to long pcap request times.
+   
+In ``/opt/so/saltstack/local/pillar/global.sls``, add an option similar to below. Keep in mind both the overall name as well as the name of the specific configuration should be somewhat descriptive to their purpose. An example is shown below.
+
+::
+
+storage:
+   pcapdir: '/nsm/pcap'
+   indexdir: '/nsm/pcapindex'
+
+Once the configuration has been implemented in the Global pillar file, we need to import the new value into the default salt configuration of the tools you would like to modify. The most common file which needs the new value is the init.sls file. In this example, we are modifying the Strelka default init.sls, found at ``/opt/so/saltstack/default/salt/pcap/init.sls``.
+
+::
+
+{% set PCAPDIR = salt['pillar.get']('storage:pcapdir', '/nsm/pcap') %}
+{% set INDEXDIR = salt['pillar.get']('storage:indexdir', '/nsm/pcapindex') %}
+
 
 Salt Minion Startup Options
 ---------------------------
