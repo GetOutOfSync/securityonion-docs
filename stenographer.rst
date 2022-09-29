@@ -58,25 +58,16 @@ For example, suppose you want to change the default value for purging old pcap. 
 Below is a table of all of the salt options for stenographer, including customised options specific to our environment. To configure a salt option, refer to the example above.
 
 
-| Name               | Default Value  | Notes                                                                                        |
-
-|--------------------|----------------|----------------------------------------------------------------------------------------------|
-
-| aiops              | 128            | Unknown                                                                                      |
-
-| blocks             | 2048           | Unknown                                                                                      |
-
-| diskfreepercentage | 10             | Once the volume reaches the percentage free, stenographer will begin discarding old pcaps    |
-
-| interface          | bond0          | The interface used to collet traffic. This is the docker interface, not a physical interface |
-
-| filemb             | 4096           | Unknown                                                                                      |
-
-| threads            | 1              | How many total instances of stenographer should run in parallel on each node.                |
-
-| **pcapdir**        | /nsm/pcap      | **Nonstandard Option**. Used to change where pcaps are stored.                               |
-
-| **indexdir**       | /nsm/pcapindex | **Nonstandard Option**. Used to change where pcap indexes are stored. Required to read data. |
+**Name**|**Default Value**|**Notes**
+:-----:|:-----:|:-----:
+aiops|128|Unknown
+blocks|2048|Unknown
+diskfreepercentage|10|Once free space in the volume reaches the value, stenographer will begin discarding old pcaps
+interface|bond0|The interface used to collect traffic. This is the docker interface, not a physical interface.
+filemb|4096|Unknown
+threads|1|How many total instances of stenographer should run in parallel.
+pcapdir|/nsm/pcap|**Nonstandard Option**. Used to change the storage location for pcaps
+indexdir|/nsm/pcapindex|**Nonstandard Option**. Used to change the storage location for pcapindexes
 
 
 Maximum Files
