@@ -38,10 +38,27 @@ Even if Strelka doesn't detect a YARA match, it will still log metadata about th
 .. image:: images/strelka.png
   :target: _images/strelka.png
 
+Rules
+-----
+
+Strelka comes with a variety of YARA rules pre-built. To add custom YARA rules, copy the YARA rule file into ``/nsm/repo/rules/strelka``. In the event you have multiple or many related files, you can copy the entire directory into the ``rules`` directory. Example: ``/nsm/repo/rules/strelka/custom_rules``. To disable rules, add the filename of the yara rules to the ``/opt/so/saltstack/default/salt/strelka/defaults.yaml`` file.
+
 Configuration
 -------------
 
-Strelka reads its configuration from ``/opt/so/conf/strelka/``. However, please keep in mind that if you make any changes to this directory they may be overwritten since the configuration is managed with :ref:`salt`.
+Strelka reads its configuration from ``/opt/so/conf/strelka/``. However, please keep in mind that if you make any changes to this directory they may be overwritten since the configuration is managed with :ref:`salt`. The base ``global.sls`` name is ``strelka``, and below is a table of salt options available.
+
++-----------+-----------------------------------------+----------------------------------------------------+
+| Options   | Default Value                           | Notes                                              |
++===========+=========================================+====================================================+
+| enabled   | 1                                       | Enables Strelka. 1 to enable, 0 to disable.        |
++-----------+-----------------------------------------+----------------------------------------------------+
+| rules     | 1                                       | Enables Strelka Rules. 1 to enable, 0 to disable.  |
++-----------+-----------------------------------------+----------------------------------------------------+
+| ignore    | strelka_config.strelka.ignore           | File containing a list of rules to ignore.         |
++-----------+-----------------------------------------+----------------------------------------------------+
+| imagerepo | 'https://<manager>/repo/rules/strelka'  | Where to pull yara rules from.                     |
++-----------+-----------------------------------------+----------------------------------------------------+
 
 Diagnostic Logging
 ------------------
